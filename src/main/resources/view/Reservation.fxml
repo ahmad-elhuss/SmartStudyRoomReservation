@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="smartstudyroomreservation.controller.ReservationController"
+      alignment="CENTER" spacing="15" prefWidth="500" prefHeight="450">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Make New Reservation" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <Label text="Available Rooms:"/>
+    <ComboBox fx:id="roomComboBox" promptText="Select Room" prefWidth="300"/>
+
+    <Label text="Date (YYYY-MM-DD):"/>
+    <TextField fx:id="dateField" promptText="2026-05-15"/>
+
+    <Label text="Start Time (HH:mm):"/>
+    <TextField fx:id="startTimeField" promptText="14:00"/>
+
+    <Label text="End Time (HH:mm):"/>
+    <TextField fx:id="endTimeField" promptText="16:00"/>
+
+    <Button text="Confirm Reservation" fx:id="confirmButton" prefWidth="280" onAction="#handleConfirmReservation"/>
+    <Button text="Back to Home" fx:id="backButton" prefWidth="280" onAction="#handleBackToHome"/>
+
+</VBox>

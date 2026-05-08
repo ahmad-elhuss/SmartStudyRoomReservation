@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="smartstudyroomreservation.controller.AdminController"
+      alignment="CENTER" spacing="15" prefWidth="600" prefHeight="500">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Admin Panel" style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
+
+    <Label text="All Study Rooms:"/>
+    <ListView fx:id="allRoomsListView" prefHeight="300" />
+
+    <Button text="Refresh Rooms" fx:id="refreshButton" prefWidth="250" onAction="#handleRefresh"/>
+    <Button text="Back to Home" fx:id="backButton" prefWidth="250" onAction="#handleBackToHome"/>
+
+</VBox>

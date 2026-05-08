@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="smartstudyroomreservation.controller.HomeController"
+      alignment="CENTER" spacing="15" prefWidth="650" prefHeight="500">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Welcome to Smart Study Room" style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
+
+    <Label text="Available Study Rooms" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <ListView fx:id="roomsListView" prefHeight="250" />
+
+    <Button text="Refresh Available Rooms" fx:id="refreshButton" prefWidth="280" onAction="#handleRefreshRooms"/>
+    <Button text="Make New Reservation" fx:id="reserveButton" prefWidth="280" onAction="#handleMakeReservation"/>
+    <Button text="My Reservations" fx:id="myReservationsButton" prefWidth="280" onAction="#handleMyReservations"/>
+    <Button text="Admin Panel" fx:id="adminButton" prefWidth="280" onAction="#handleAdminPanel"/>
+    <Button text="Logout" fx:id="logoutButton" prefWidth="280" onAction="#handleLogout"/>
+
+</VBox>
