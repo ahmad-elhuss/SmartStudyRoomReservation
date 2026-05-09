@@ -13,7 +13,7 @@ public class Reservation {
         this.studentId = studentId;
         this.roomId = roomId;
         this.timeSlot = timeSlot;
-        this.status = "Pending";
+        this.status = "Confirmed";
     }
 
     public String getReservationId() {
@@ -34,14 +34,5 @@ public class Reservation {
 
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void displayReservation() {
-        System.out.println("Reservation ID: " + reservationId + " | Room: " + roomId
-                + " | Student: " + studentId + " | Time: " + timeSlot.getFullSlot());
     }
 }

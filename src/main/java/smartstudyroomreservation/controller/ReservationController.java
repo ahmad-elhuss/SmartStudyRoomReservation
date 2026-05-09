@@ -14,6 +14,8 @@ import smartstudyroomreservation.model.StudyRoom;
 import smartstudyroomreservation.model.TimeSlot;
 import smartstudyroomreservation.model.Reservation;
 
+import java.io.*;
+import java.net.Socket;
 import java.io.IOException;
 
 public class ReservationController {
@@ -26,6 +28,9 @@ public class ReservationController {
     private TextField startTimeField;
     @FXML
     private TextField endTimeField;
+
+    private static final String SERVER_IP = "127.0.0.1";
+    private static final int PORT = 1234;
 
     @FXML
     private void initialize() {
@@ -52,18 +57,38 @@ public class ReservationController {
         }
 
         String roomId = selectedRoom.split(" - ")[0];
+        String studentId = "S001";
 
-        TimeSlot slot = new TimeSlot(date, start, end);
-        Reservation res = new Reservation("RES" + System.currentTimeMillis(), "S001", roomId, slot);
+        String command = "RESERVE|" + roomId + "|" + date + "|" + start + "|" + end + "|" + studentId;
 
-        boolean success = ReservationManager.makeReservation(res);
+        String response = sendToServer(command);
+        System.out.println("Server Response: " + response);
 
-        if (success) {
+        if (response != null && response.startsWith("RESERVE_SUCCESS")) {
             System.out.println("✅ Reservation Confirmed Successfully!");
-            loadAvailableRooms();
-            handleBackToHome(event);
+
+            // تحديث البيانات محلياً بعد الحجز الناجح
+            ReservationManager.makeReservation(new Reservation("RES" + System.currentTimeMillis(),
+                    studentId, roomId, new TimeSlot(date, start, end)));
+
+            loadAvailableRooms();           // تحديث ComboBox
+            handleBackToHome(event);        // الرجوع للـ Home
         } else {
-            System.out.println("❌ Reservation Failed! Room not available.");
+            System.out.println("❌ Reservation Failed: " + response);
+        }
+    }
+
+    private String sendToServer(String message) {
+        try (Socket socket = new Socket(SERVER_IP, PORT);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+            out.println(message);
+            return in.readLine();
+
+        } catch (IOException e) {
+            System.out.println("Cannot connect to server");
+            return "ERROR|Connection failed";
         }
     }
 
@@ -73,6 +98,7 @@ public class ReservationController {
             Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, 650, 500));
+            stage.setTitle("Home - Smart Study Room");
         } catch (IOException e) {
             e.printStackTrace();
         }

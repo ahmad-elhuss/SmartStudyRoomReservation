@@ -33,15 +33,10 @@ public class ReservationManager {
                 if (room.isAvailable()) {
                     reservations.add(reservation);
                     room.setAvailable(false);
-                    System.out.println("✅ Room " + roomId + " reserved successfully by " + reservation.getStudentId());
                     return true;
-                } else {
-                    System.out.println("❌ Room " + roomId + " is already reserved");
-                    return false;
                 }
             }
         }
-        System.out.println("❌ Room " + roomId + " not found");
         return false;
     }
 

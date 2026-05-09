@@ -1,27 +1,32 @@
-package smartstudyroomreservation;
+package smartstudyroomreservation.network;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import smartstudyroomreservation.model.ReservationManager;
 import smartstudyroomreservation.model.StudyRoom;
 
-public class MainApplication extends Application {
+import java.net.ServerSocket;
+import java.net.Socket;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+public class Server {
+
+    private static final int PORT = 1234;
+
+    public static void main(String[] args) {
         initializeRooms();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
-        primaryStage.setTitle("Smart Study Room Reservation");
-        primaryStage.setScene(new Scene(root, 450, 350));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Server is running on port " + PORT);
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("New client connected");
+                new ClientHandler(clientSocket).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void initializeRooms() {
+    private static void initializeRooms() {
         if (ReservationManager.getAllRooms().isEmpty()) {
             StudyRoom r1 = new StudyRoom("R101", "Room 101", 4, "First Floor");
             StudyRoom r2 = new StudyRoom("R102", "Room 102", 6, "Second Floor");
@@ -33,9 +38,5 @@ public class MainApplication extends Application {
             ReservationManager.addRoom(r3);
             ReservationManager.addRoom(r4);
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

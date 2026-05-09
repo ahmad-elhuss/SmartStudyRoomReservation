@@ -19,4 +19,8 @@ public class UserStore {
         }
         return null;
     }
+
+    public static void addUser(User user) {
+        users.add(user);
+    }
 }

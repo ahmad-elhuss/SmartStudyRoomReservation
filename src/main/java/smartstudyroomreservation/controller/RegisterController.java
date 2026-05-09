@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import smartstudyroomreservation.model.Student;
+import smartstudyroomreservation.model.UserStore;   // ← مهم جداً
 
 import java.io.IOException;
 
@@ -37,6 +38,8 @@ public class RegisterController {
         }
 
         Student newStudent = new Student(userId, name, password, major);
+        UserStore.addUser(newStudent);
+
         System.out.println("Student Registered Successfully: " + name);
 
         try {

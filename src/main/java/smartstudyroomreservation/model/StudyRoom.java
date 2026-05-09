@@ -39,9 +39,4 @@ public class StudyRoom {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
-
-    public void displayRoomInfo() {
-        System.out.println("Room ID: " + roomId + " | Name: " + roomName +
-                " | Capacity: " + capacity + " | Available: " + isAvailable);
-    }
 }

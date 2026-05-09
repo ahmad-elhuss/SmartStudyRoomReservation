@@ -45,30 +45,47 @@ public class HomeController {
 
     @FXML
     private void handleMakeReservation(ActionEvent event) {
-        openScreen(event, "/view/Reservation.fxml", "Make Reservation", 500, 450);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Reservation.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 500, 450));
+            stage.setTitle("Make Reservation");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleMyReservations(ActionEvent event) {
-        openScreen(event, "/view/MyReservations.fxml", "My Reservations", 650, 500);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/MyReservations.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 650, 500));
+            stage.setTitle("My Reservations");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleAdminPanel(ActionEvent event) {
-        openScreen(event, "/view/Admin.fxml", "Admin Panel", 600, 500);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Admin.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 500));
+            stage.setTitle("Admin Panel");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleLogout(ActionEvent event) {
-        openScreen(event, "/view/Login.fxml", "Smart Study Room Reservation", 450, 350);
-    }
-
-    private void openScreen(ActionEvent event, String fxmlPath, String title, int width, int height) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, width, height));
-            stage.setTitle(title);
+            stage.setScene(new Scene(root, 450, 350));
+            stage.setTitle("Smart Study Room Reservation");
         } catch (IOException e) {
             e.printStackTrace();
         }
